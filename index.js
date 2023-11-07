@@ -1,6 +1,7 @@
 const puppeteer = require('puppeteer');
 const handlebars = require('handlebars');
 const Promise = require('bluebird');
+const util = require('util');
 
 const DEFAULT_PUPPETEER_ARGS = [
   '--no-sandbox',
