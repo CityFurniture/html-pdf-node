@@ -1,6 +1,5 @@
 const puppeteer = require('puppeteer');
 const handlebars = require('handlebars');
-const inlineCss = require('inline-css');
 const Promise = require('bluebird');
 
 const DEFAULT_PUPPETEER_ARGS = [
@@ -23,9 +22,9 @@ async function _launchBrowser(customArgs = []) {
  */
 async function _compileTemplate(content) {
   console.log("Compiling the template with handlebars");
-  const styledContent = await inlineCss(content, { url: "/" });
-  const template = handlebars.compile(styledContent, { strict: true });
-  return template(styledContent);
+
+  const template = handlebars.compile(content, { strict: true });
+  return template(content);
 }
 /**
  * private function that sets the pdf content.
