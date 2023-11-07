@@ -1,6 +1,6 @@
 {
   "name": "@cityfurniture/html-pdf-node",
-  "version": "1.0.11",
+  "version": "1.0.12",
   "description": "Convert any html content or html page to PDF",
   "main": "index.js",
   "directories": {

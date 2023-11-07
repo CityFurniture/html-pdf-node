@@ -6,6 +6,9 @@ const util = require('util');
 const DEFAULT_PUPPETEER_ARGS = [
   '--no-sandbox',
   '--disable-setuid-sandbox',
+  '--headless',
+  "--single-process",
+  "--no-zygote"
 ];
 /**
  * private function that launches a puppeteer browser. 
