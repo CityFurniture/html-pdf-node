@@ -41,6 +41,22 @@ async function _setPdfContent(page, file) {
   }
 }
 
+
+/**
+ * Kill the browser with retries
+ * @param {*} browserProcess The browser process object
+ * @param {number} retries Number of retries to kill the browser
+ */
+const killBrowser = async (browserProcess, retries = 5) => {
+  for (let i = 0; i < retries; i++) {
+    if (browserProcess && browserProcess.pid && !browserProcess.killed) {
+      console.log(`BROWSER Process Id: ${browserProcess.pid}, KILLING IT! retries:`, retries - i);
+      const killed = await util.promisify(setTimeout)(() => browserProcess.kill('SIGKILL'), 200);
+      if (killed) break;
+    }
+  }
+};
+
 /**
  * This function closes all pages in the browser. It is used to avoid memory leaks. 
  * @param {puppeteer.Puppeteer.browser} browser 
@@ -74,6 +90,7 @@ async function generatePdf(file, options, callback) {
   } finally {
     await _closeAllPages(browser);
     await browser.close();
+    killBrowser(browser.process());
   }
 }
 /**
@@ -106,7 +123,9 @@ async function generatePdfs(files, options, callback) {
   } finally {
     await _closeAllPages(browser);
     await browser.close();
+    killBrowser(browser.process());
   }
+
 }
 
 
